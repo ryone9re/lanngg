@@ -1,0 +1,92 @@
+<program> ::= { <declaration> }
+
+<declaration> ::= <function-declaration> | <variable-declaration>
+
+<function-declaration> ::= "fn" <identifier> "(" <parameter-list> ")" <type> <block>
+
+<variable-declaration> ::= "var" <identifier> ":" <type> ";"
+
+<parameter-list> ::= <parameter> { "," <parameter> } | ε
+
+<parameter> ::= <identifier> ":" <type>
+
+<block> ::= "{" { <statement> } "}"
+
+<statement> ::= <expression-statement>
+              | <if-statement>
+              | <while-statement>
+              | <for-statement>
+              | <return-statement>
+              | <block>
+
+<expression-statement> ::= <expression> ";"
+
+<if-statement> ::= "if" "(" <expression> ")" <statement> [ "else" <statement> ]
+
+<while-statement> ::= "while" "(" <expression> ")" <statement>
+
+<for-statement> ::= "for" "(" [<variable-declaration> | <expression-statement>] ";" <expression> ";" <expression-statement> ")" <statement>
+
+<return-statement> ::= "return" [<expression>] ";"
+
+<expression> ::= <assignment-expression>
+
+<assignment-expression> ::= <identifier> "=" <conditional-expression> | <conditional-expression>
+
+<conditional-expression> ::= <logical-or-expression> [ "?" <expression> ":" <conditional-expression> ]
+
+<logical-or-expression> ::= <logical-and-expression> { "||" <logical-and-expression> }
+
+<logical-and-expression> ::= <equality-expression> { "&&" <equality-expression> }
+
+<equality-expression> ::= <relational-expression> { ("==" | "!=") <relational-expression> }
+
+<relational-expression> ::= <additive-expression> { ("<" | "<=" | ">" | ">=") <additive-expression> }
+
+<additive-expression> ::= <multiplicative-expression> { ("+" | "-") <multiplicative-expression> }
+
+<multiplicative-expression> ::= <unary-expression> { ("*" | "/" | "%") <unary-expression> }
+
+<unary-expression> ::= ["+" | "-" | "!"] <primary-expression> | <primary-expression>
+
+<primary-expression> ::= <identifier> | <literal> | "(" <expression> ")"
+
+<identifier> ::= <letter> { <letter> | <digit> }
+
+<letter> ::= "a" | ... | "z" | "A" | ... | "Z"
+
+<digit> ::= "0" | ... | "9"
+
+<literal> ::= <integer-literal> | <float-literal> | <char-literal> | <string-literal>
+
+<integer-literal> ::= <digit> { <digit> }
+
+<float-literal> ::= <digit> { <digit> } "." <digit> { <digit> }
+
+<char-literal> ::= "'" <character> "'"
+
+<string-literal> ::= '"' { <character> } '"'
+
+<character> ::= <letter> | <digit> | <symbol>
+
+<symbol> ::= "!" | "#"| "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "\" | "]" | "^" | "_" | "`" | "{" | "|" | "}" | "~"
+
+<type> ::= "int" | "float" | "char" | "bool" | "void" | <custom-type>
+
+<custom-type> ::= <identifier>
+
+<array-type> ::= <type> "[" <integer-literal> "]"
+
+<array-declaration> ::= "var" <identifier> ":" <array-type> ";"
+
+<array-access> ::= <identifier> "[" <expression> "]"
+
+<function-call> ::= <identifier> "(" [<argument-list>] ")"
+
+<argument-list> ::= <expression> { "," <expression> } | ε
+
+<struct-definition> ::= "struct" <identifier> "{" { <variable-declaration> } "}"
+
+<struct-variable-declaration> ::= "var" <identifier> ":" <custom-type> ";"
+
+<struct-member-access> ::= <identifier> "." <identifier>
