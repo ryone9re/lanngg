@@ -1,5 +1,7 @@
 # lanngg
 
+ChatGPTに設計してもらった言語を自分で実装していく
+
 ```txt
 // 変数宣言
 var x: int;
